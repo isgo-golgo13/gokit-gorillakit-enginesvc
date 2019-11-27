@@ -23,7 +23,7 @@ docker build -t enginesvc-healthchk:1.0 .
 ### Run the docker container
 ```bash
 
-docker run  --name enginesvc-healthchk -p 8080:8080 engine-healthchk:1.0
+docker run  --name enginesvc-healthchk -p 8080:8080 enginesvc-healthchk:1.0
 ```
 
 Test the HEALTHCHECK endpoint of the Docker container (order prior or after hitting service endpoints isn't affecting). The goal of the container is to serve traffic on port 8080 and our healthchk should ensure that is occurring. The default options of the HEALTHCHECK flag are interval 30s, timeout 30s, start-period 0s, and retries 3. If different options are reqiured, look to the Docker HEALTHCHECK option page at docker.io.
