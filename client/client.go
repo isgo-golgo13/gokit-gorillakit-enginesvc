@@ -1,4 +1,4 @@
-// Package client provides a profilesvc client based on a predefined Consul
+// Package client provides a enginesvc client based on a predefined Consul
 // service name and relevant tags. Users must only provide the address of a
 // Consul server.
 package client
@@ -10,7 +10,7 @@ import (
 	consulapi "github.com/hashicorp/consul/api"
 
 	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/examples/profilesvc"
+	"github.com/isgo-golgo13/enginesvc/enginesvcpkg"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/sd"
 	"github.com/go-kit/kit/sd/consul"
@@ -20,7 +20,7 @@ import (
 // New returns a service that's load-balanced over instances of profilesvc found
 // in the provided Consul server. The mechanism of looking up profilesvc
 // instances in Consul is hard-coded into the client.
-func New(consulAddr string, logger log.Logger) (profilesvc.Service, error) {
+func New(consulAddr string, logger log.Logger) (enginesvcpkg.Service, error) {
 	apiclient, err := consulapi.NewClient(&consulapi.Config{
 		Address: consulAddr,
 	})
@@ -31,7 +31,7 @@ func New(consulAddr string, logger log.Logger) (profilesvc.Service, error) {
 	// As the implementer of profilesvc, we declare and enforce these
 	// parameters for all of the profilesvc consumers.
 	var (
-		consulService = "profilesvc"
+		consulService = "enginesvc"
 		consulTags    = []string{"prod"}
 		passingOnly   = true
 		retryMax      = 3
@@ -41,78 +41,29 @@ func New(consulAddr string, logger log.Logger) (profilesvc.Service, error) {
 	var (
 		sdclient  = consul.NewClient(apiclient)
 		instancer = consul.NewInstancer(sdclient, logger, consulService, consulTags, passingOnly)
-		endpoints profilesvc.Endpoints
+		endpoints enginesvcpkg.Endpoints
 	)
 	{
-		factory := factoryFor(profilesvc.MakePostProfileEndpoint)
+		factory := factoryFor(enginesvcpkg.MakeRegisterEngineEndpoint)
 		endpointer := sd.NewEndpointer(instancer, factory, logger)
 		balancer := lb.NewRoundRobin(endpointer)
 		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.PostProfileEndpoint = retry
+		endpoints.RegisterEngineEndpoint = retry
 	}
 	{
-		factory := factoryFor(profilesvc.MakeGetProfileEndpoint)
+		factory := factoryFor(enginesvcpkg.MakeGetRegisteredEngineEndpoint)
 		endpointer := sd.NewEndpointer(instancer, factory, logger)
 		balancer := lb.NewRoundRobin(endpointer)
 		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.GetProfileEndpoint = retry
+		endpoints.GetRegisteredEngineEndpoint = retry
 	}
-	{
-		factory := factoryFor(profilesvc.MakePutProfileEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.PutProfileEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakePatchProfileEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.PatchProfileEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakeDeleteProfileEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.DeleteProfileEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakeGetAddressesEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.GetAddressesEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakeGetAddressEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.GetAddressEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakePostAddressEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.PostAddressEndpoint = retry
-	}
-	{
-		factory := factoryFor(profilesvc.MakeDeleteAddressEndpoint)
-		endpointer := sd.NewEndpointer(instancer, factory, logger)
-		balancer := lb.NewRoundRobin(endpointer)
-		retry := lb.Retry(retryMax, retryTimeout, balancer)
-		endpoints.DeleteAddressEndpoint = retry
-	}
-
+	
 	return endpoints, nil
 }
 
-func factoryFor(makeEndpoint func(profilesvc.Service) endpoint.Endpoint) sd.Factory {
+func factoryFor(makeEndpoint func(enginesvcpkg.Service) endpoint.Endpoint) sd.Factory {
 	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
-		service, err := profilesvc.MakeClientEndpoints(instance)
+		service, err := enginesvcpkg.MakeClientEndpoints(instance)
 		if err != nil {
 			return nil, nil, err
 		}

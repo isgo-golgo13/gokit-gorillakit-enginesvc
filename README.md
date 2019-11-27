@@ -3,6 +3,14 @@
 This example demonstrates how to use Go kit to implement a REST-y HTTP service.
 It uses the excellent [gorilla mux package](https://github.com/gorilla/mux) for routing.
 
+Build the code (not using Docker)
+
+The module definition for the project is in go.mod as : `github.com/isgo-golgo13/enginesvc` and to build this at the root of the project (enginesvc/ from the git clone) issue:
+`go build github.com/isgo-golgo13/enginesvc/cmd/enginesvc` and the exe will deposit in the root of the project.
+
+Run the code (not using Docker)
+`go run github.com/marvincaspar/go-example/cmd/server`
+
 
 Build the docker image
 
