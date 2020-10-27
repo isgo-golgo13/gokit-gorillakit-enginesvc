@@ -1,11 +1,9 @@
-module github.com/isgo-golgo13/enginesvc
+module github.com/isgo-golgo13/go-gokit-gorilla-restsvc
 
-go 1.13
+go 1.15
 
 require (
-	github.com/go-kit/kit v0.9.0
-	github.com/go-logfmt/logfmt v0.4.0 // indirect
-	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/gorilla/mux v1.7.3
-	github.com/hashicorp/consul/api v1.3.0
+	github.com/go-kit/kit v0.10.0
+	github.com/gorilla/mux v1.8.0
+	github.com/hashicorp/consul/api v1.7.0
 )

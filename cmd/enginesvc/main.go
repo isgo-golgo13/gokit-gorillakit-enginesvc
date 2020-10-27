@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/isgo-golgo13/enginesvc/enginesvcpkg"
+	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/engine_svcpkg"
 
 	"github.com/go-kit/kit/log"
 )
@@ -26,15 +26,15 @@ func main() {
 		logger = log.With(logger, "caller", log.DefaultCaller)
 	}
 
-	var s enginesvcpkg.Service
+	var s engine_svcpkg.Service
 	{
-		s = enginesvcpkg.NewRegistrationService()
-		s = enginesvcpkg.LoggingMiddleware(logger)(s)
+		s = engine_svcpkg.NewRegistrationService()
+		s = engine_svcpkg.LoggingMiddleware(logger)(s)
 	}
 
 	var h http.Handler
 	{
-		h = enginesvcpkg.MakeHTTPHandler(s, log.With(logger, "component", "HTTP"))
+		h = engine_svcpkg.MakeHTTPHandler(s, log.With(logger, "component", "HTTP"))
 	}
 
 	errs := make(chan error)

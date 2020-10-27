@@ -5,11 +5,15 @@ It uses the excellent [gorilla mux package](https://github.com/gorilla/mux) for 
 
 ### Build the code (not using Docker)
 
-The module definition for the project is in go.mod as : `github.com/isgo-golgo13/enginesvc` and to build this at the root of the project (enginesvc/ from the git clone) issue:
-`go build github.com/isgo-golgo13/enginesvc/cmd/enginesvc` and the exe will deposit in the root of the project.
+The module definition for the project is in go.mod as : `github.com/isgo-golgo13/go-gokit-gorilla-restsvc` and to build this at the root of the project (github.com/isgo-golgo13/go-gokit-gorilla-restsvc/ from the git clone) issue:
+`go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/enginesvc` and the exe will deposit in the root of the project or just issue the provided Makdefile as follows:
+`make compile`
 
 ### Run the code (not using Docker)
-`go run github.com/marvincaspar/go-example/cmd/server`
+`go run github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/enginesvc`
+
+### Clean the built binary artifact
+Issue the following: `make clean`
 
 
 ### Build the docker image
