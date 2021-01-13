@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "helmk8s-gokit-gorilla-restsvc.fullname" . }}-test-connection"
+  labels:
+    {{- include "helmk8s-gokit-gorilla-restsvc.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "helmk8s-gokit-gorilla-restsvc.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
