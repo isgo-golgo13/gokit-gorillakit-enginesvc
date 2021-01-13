@@ -1,4 +1,4 @@
-package engine_svcpkg
+package servicepkg
 
 import (
 	"context"

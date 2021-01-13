@@ -1,4 +1,4 @@
-package engine_svcpkg
+package servicepkg
 
 // The enginesvcpkg is just over HTTP, so we just have a single transport.go.
 
