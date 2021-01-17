@@ -1,34 +1,51 @@
-# Docker/K8s Engine Microservice
+# Go, Go-kit, Gorilla (Gorilla mux router package) REST Service using Docker
 
-This example demonstrates how to use Go kit to implement a REST-y HTTP service.
-It uses the excellent [gorilla mux package](https://github.com/gorilla/mux) for routing.
+It uses the [gorilla mux package](https://github.com/gorilla/mux) for routing.
 
-### Build the code (not using Docker)
+### Build the app  (not using Docker)
 
 The module definition for the project is in go.mod as : `github.com/isgo-golgo13/go-gokit-gorilla-restsvc` and to build this at the root of the project (github.com/isgo-golgo13/go-gokit-gorilla-restsvc/ from the git clone) issue:
-`go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/enginesvc` and the exe will deposit in the root of the project or just issue the provided Makdefile as follows:
+`go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/service` or `go build -o service cmd/service/main.go` (the latter is used in the Dockerfile) and the exe will deposit in the root of the project or just issue the provided Makdefile as follows:
+
 `make compile`
 
-### Run the code (not using Docker)
-`go run github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/enginesvc`
+### Run the app (not using Docker)
+`go run github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/service`
 
 ### Clean the built binary artifact
 Issue the following: `make clean`
 
 
-### Build the docker image
+### Build the Docker Container Image
 
 ```bash
 
-docker build -t enginesvc-healthchk:1.0 .
+sh kr8-docker.sh 
 
 ```
+This shell script executes the following:
 
-### Run the docker container
+```
+#! /bin/sh
+
+set -ex
+
+docker image build -t go-gokit-gorilla-restsvc:1.0 .
+```
+
+### Run the Docker Container
 ```bash
 
-docker run  --name enginesvc-healthchk -p 8080:8080 enginesvc-healthchk:1.0
+sh kr8-docker-run.sh
 ```
+
+
+### Destroy the Docker Image and Container
+```
+
+sh kill-docker.sh
+```
+
 
 Test the HEALTHCHECK endpoint of the Docker container (order prior or after hitting service endpoints isn't affecting). The goal of the container is to serve traffic on port 8080 and our healthchk should ensure that is occurring. The default options of the HEALTHCHECK flag are interval 30s, timeout 30s, start-period 0s, and retries 3. If different options are reqiured, look to the Docker HEALTHCHECK option page at docker.io.
 ```
@@ -51,13 +68,27 @@ It is possible that container can accept and process requests properly and yet y
 ### Create/Register an Engine:
 
 ```bash
-$ curl -d '{"id":"1234","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}' -H "Content-Type: application/json" -X POST http://localhost:8080/engines/
+$ curl -d '{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}' -H "Content-Type: application/json" -X POST http://localhost:8080/engines/
 {}
 ```
 
-### Get the engine you just created
-
+### Retrive an Engine
+ 
 ```bash
-$ curl localhost:8080/engines/1234
-{"engine":{"id":"1234","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}}
+$ curl localhost:8080/engines/00001
+{"engine":{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}}
 ```
+
+### To Exec into Docker Container (In Linux Shell Terminal of Container)
+
+```
+Syntax:
+
+docker container exec -it <container-name> <shell> 
+
+Actual Use:
+
+docker container exec -it go-gokit-gorilla-restsvc /bin/sh
+```
+
+The run `ls -al` to see the directory structure of the application as laid out in the container.
