@@ -1,4 +1,4 @@
-SERVICE_NAME=enginesvc
+SERVICE_NAME=service
 
 .PHONY : clean 
 .DEFAULT_GOAL : all

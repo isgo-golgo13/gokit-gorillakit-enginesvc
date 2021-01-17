@@ -27,7 +27,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 # copy the source from the current directory to the Working Directory inside the container
 #COPY . .
-COPY ./client ./cmd ./servicekit ./
+COPY ./client ./cmd ./servicekit ./vendor ./
 
 
 
