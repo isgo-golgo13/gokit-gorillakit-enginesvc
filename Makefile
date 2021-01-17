@@ -6,7 +6,7 @@ SERVICE_NAME=enginesvc
 all:
 	
 compile: 
-	go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/enginesvc
+	go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/service
 
 clean: 
 	rm -f ${SERVICE_NAME}

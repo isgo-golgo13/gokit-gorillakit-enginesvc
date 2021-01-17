@@ -14,13 +14,13 @@ import (
 	"github.com/go-kit/kit/sd"
 	"github.com/go-kit/kit/sd/consul"
 	"github.com/go-kit/kit/sd/lb"
-	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/engine_svcpkg"
+	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/servicekit"
 )
 
 // New returns a service that's load-balanced over instances of enginesvc found
-// in the provided Consul server. The mechanism of looking up emginesvc
+// in the provided Consul server. The mechanism of looking up ' engine service''
 // instances in Consul is hard-coded into the client.
-func New(consulAddr string, logger log.Logger) (engine_svcpkg.Service, error) {
+func New(consulAddr string, logger log.Logger) (servicekit.Service, error) {
 	apiclient, err := consulapi.NewClient(&consulapi.Config{
 		Address: consulAddr,
 	})
@@ -28,10 +28,10 @@ func New(consulAddr string, logger log.Logger) (engine_svcpkg.Service, error) {
 		return nil, err
 	}
 
-	// As the implementer of enginesvc, we declare and enforce these
-	// parameters for all of the enginesvc consumers.
+	// As the implementer of 'engine-service', we declare and enforce these
+	// parameters for all of the 'service' consumers.
 	var (
-		consulService = "enginesvc"
+		consulService = "engine-service"
 		consulTags    = []string{"prod"}
 		passingOnly   = true
 		retryMax      = 3
@@ -41,29 +41,29 @@ func New(consulAddr string, logger log.Logger) (engine_svcpkg.Service, error) {
 	var (
 		sdclient  = consul.NewClient(apiclient)
 		instancer = consul.NewInstancer(sdclient, logger, consulService, consulTags, passingOnly)
-		endpoints engine_svcpkg.Endpoints
+		endpoints servicekit.Endpoints
 	)
 	{
-		factory := factoryFor(engine_svcpkg.MakeRegisterEngineEndpoint)
+		factory := factoryFor(servicekit.MakeRegisterEngineEndpoint)
 		endpointer := sd.NewEndpointer(instancer, factory, logger)
 		balancer := lb.NewRoundRobin(endpointer)
 		retry := lb.Retry(retryMax, retryTimeout, balancer)
 		endpoints.RegisterEngineEndpoint = retry
 	}
 	{
-		factory := factoryFor(engine_svcpkg.MakeGetRegisteredEngineEndpoint)
+		factory := factoryFor(servicekit.MakeGetRegisteredEngineEndpoint)
 		endpointer := sd.NewEndpointer(instancer, factory, logger)
 		balancer := lb.NewRoundRobin(endpointer)
 		retry := lb.Retry(retryMax, retryTimeout, balancer)
 		endpoints.GetRegisteredEngineEndpoint = retry
 	}
-	
+
 	return endpoints, nil
 }
 
-func factoryFor(makeEndpoint func(engine_svcpkg.Service) endpoint.Endpoint) sd.Factory {
+func factoryFor(makeEndpoint func(servicekit.Service) endpoint.Endpoint) sd.Factory {
 	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
-		service, err := engine_svcpkg.MakeClientEndpoints(instance)
+		service, err := servicekit.MakeClientEndpoints(instance)
 		if err != nil {
 			return nil, nil, err
 		}

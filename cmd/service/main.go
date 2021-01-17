@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/servicepkg"
+	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/servicekit"
 
 	"github.com/go-kit/kit/log"
 )
@@ -26,15 +26,15 @@ func main() {
 		logger = log.With(logger, "caller", log.DefaultCaller)
 	}
 
-	var s servicepkg.Service
+	var s servicekit.Service
 	{
-		s = servicepkg.NewRegistrationService()
-		s = servicepkg.LoggingMiddleware(logger)(s)
+		s = servicekit.NewRegistrationService()
+		s = servicekit.LoggingMiddleware(logger)(s)
 	}
 
 	var h http.Handler
 	{
-		h = servicepkg.MakeHTTPHandler(s, log.With(logger, "component", "HTTP"))
+		h = servicekit.MakeHTTPHandler(s, log.With(logger, "component", "HTTP"))
 	}
 
 	errs := make(chan error)

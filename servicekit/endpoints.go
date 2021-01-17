@@ -1,4 +1,4 @@
-package servicepkg
+package servicekit
 
 import (
 	"context"
@@ -24,8 +24,8 @@ import (
 // construct individual endpoints using transport/http.NewClient, combine them
 // into an Endpoints, and return it to the caller as a Service.
 type Endpoints struct {
-	RegisterEngineEndpoint   endpoint.Endpoint
-	GetRegisteredEngineEndpoint    endpoint.Endpoint
+	RegisterEngineEndpoint      endpoint.Endpoint
+	GetRegisteredEngineEndpoint endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct where each endpoint invokes
@@ -33,8 +33,8 @@ type Endpoints struct {
 // server.
 func MakeServerEndpoints(s Service) Endpoints {
 	return Endpoints{
-		RegisterEngineEndpoint:   MakeRegisterEngineEndpoint(s),
-		GetRegisteredEngineEndpoint:    MakeGetRegisteredEngineEndpoint(s),
+		RegisterEngineEndpoint:      MakeRegisterEngineEndpoint(s),
+		GetRegisteredEngineEndpoint: MakeGetRegisteredEngineEndpoint(s),
 	}
 }
 
@@ -58,8 +58,8 @@ func MakeClientEndpoints(instance string) (Endpoints, error) {
 	// each endpoint.
 
 	return Endpoints{
-		RegisterEngineEndpoint:   httptransport.NewClient("POST", tgt, encodeRegisterEngineRequest, decodeRegisterEngineResponse, options...).Endpoint(),
-		GetRegisteredEngineEndpoint:    httptransport.NewClient("GET", tgt, encodeGetRegisteredEngineRequest, decodeGetRegisteredEngineResponse, options...).Endpoint(),
+		RegisterEngineEndpoint:      httptransport.NewClient("POST", tgt, encodeRegisterEngineRequest, decodeRegisterEngineResponse, options...).Endpoint(),
+		GetRegisteredEngineEndpoint: httptransport.NewClient("GET", tgt, encodeGetRegisteredEngineRequest, decodeGetRegisteredEngineResponse, options...).Endpoint(),
 	}, nil
 }
 
@@ -85,12 +85,6 @@ func (e Endpoints) GetRegisteredEngine(ctx context.Context, id string) (Engine, 
 	return resp.Engine, resp.Err
 }
 
-
-
-
-
-
-
 // MakeRegisterEngineEndpoint returns an endpoint via the passed service.
 // Primarily useful in a server.
 func MakeRegisterEngineEndpoint(s Service) endpoint.Endpoint {
@@ -110,6 +104,7 @@ func MakeGetRegisteredEngineEndpoint(s Service) endpoint.Endpoint {
 		return getRegisteredEngineResponse{Engine: eg, Err: e}, nil
 	}
 }
+
 // We have two options to return errors from the business logic.
 //
 // We could return the error via the endpoint itself. That makes certain things
@@ -141,8 +136,7 @@ type getRegisteredEngineRequest struct {
 
 type getRegisteredEngineResponse struct {
 	Engine Engine `json:"engine,omitempty"`
-	Err     error   `json:"err,omitempty"`
+	Err    error  `json:"err,omitempty"`
 }
 
 func (r getRegisteredEngineResponse) error() error { return r.Err }
-

@@ -1,4 +1,4 @@
-package servicepkg
+package servicekit
 
 // The enginesvcpkg is just over HTTP, so we just have a single transport.go.
 
@@ -37,7 +37,6 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 	// POST    /engines/                          registers another engine
 	// GET     /engines/:id                       retrieves the given engine by id
 
-
 	r.Methods("POST").Path("/engines/").Handler(httptransport.NewServer(
 		e.RegisterEngineEndpoint,
 		decodeRegisterEngineRequest,
@@ -50,7 +49,7 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 		encodeResponse,
 		options...,
 	))
-	
+
 	return r
 }
 
@@ -71,7 +70,6 @@ func decodeGetRegisteredEngineRequest(_ context.Context, r *http.Request) (reque
 	return getRegisteredEngineRequest{ID: id}, nil
 }
 
-
 func encodeRegisterEngineRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	// r.Methods("POST").Path("/engines/")
 	req.URL.Path = "/engines/"
@@ -86,7 +84,6 @@ func encodeGetRegisteredEngineRequest(ctx context.Context, req *http.Request, re
 	return encodeRequest(ctx, req, request)
 }
 
-
 func decodeRegisterEngineResponse(_ context.Context, resp *http.Response) (interface{}, error) {
 	var response registerEngineResponse
 	err := json.NewDecoder(resp.Body).Decode(&response)
@@ -98,8 +95,6 @@ func decodeGetRegisteredEngineResponse(_ context.Context, resp *http.Response) (
 	err := json.NewDecoder(resp.Body).Decode(&response)
 	return response, err
 }
-
-
 
 // errorer is implemented by all concrete response types that may contain
 // errors. It allows us to change the HTTP response code without needing to

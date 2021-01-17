@@ -1,4 +1,4 @@
-package servicepkg
+package servicekit
 
 import (
 	"context"
@@ -37,4 +37,3 @@ func (mw loggingMiddleware) GetRegisteredEngine(ctx context.Context, id string) 
 	}(time.Now())
 	return mw.next.GetRegisteredEngine(ctx, id)
 }
-

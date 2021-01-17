@@ -1,4 +1,4 @@
-package servicepkg
+package servicekit
 
 import (
 	"context"
@@ -14,15 +14,13 @@ type Service interface {
 // Engine CRUD data.
 // ID should be globally unique.
 type Engine struct {
-	ID        		string    `json:"id"`
-	FactoryID       string    `json:"factory_id"`
-	EngineConfig	string	  `json:"engine_config"`
-	EngineCapacity	float32	  `json:"engine_capacity"`
-	FuelCapacity	float32   `json:"fuel_capacity"`
-	FuelRange		float32   `json:"fuel_range"`
+	ID             string  `json:"id"`
+	FactoryID      string  `json:"factory_id"`
+	EngineConfig   string  `json:"engine_config"`
+	EngineCapacity float32 `json:"engine_capacity"`
+	FuelCapacity   float32 `json:"fuel_capacity"`
+	FuelRange      float32 `json:"fuel_range"`
 }
-
-
 
 type RegistrationService struct {
 	mtx sync.RWMutex
@@ -54,4 +52,3 @@ func (s *RegistrationService) GetRegisteredEngine(ctx context.Context, id string
 	}
 	return e, nil
 }
-
