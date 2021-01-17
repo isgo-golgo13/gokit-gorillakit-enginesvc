@@ -1,4 +1,4 @@
-# Go, Go-kit, Gorilla (Gorilla mux router package) REST Service using Docker
+# Go, Go-kit, Gorilla (Go) Web Toolkit REST Service using Docker
 
 It uses the [gorilla mux package](https://github.com/gorilla/mux) for routing.
 
