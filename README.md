@@ -72,7 +72,7 @@ $ curl -d '{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radia
 {}
 ```
 
-### Retrive an Engine
+### Retrieve an Engine
  
 ```bash
 $ curl localhost:8080/engines/00001
@@ -99,7 +99,44 @@ The run `ls -al` to see the directory structure of the application as laid out i
 ```
 1. docker login 
 2. docker image tag the container image 
-3. docker image push to DockerHub container image repo 
+3. docker image push to DockerHub container image repo
 
-Step #2 retrieves the docker image 
+In Detail:
+
+Step #1. 
+docker login
+
+Results in:
+
+Username: isgogolgo13
+Password: <dockerhub password>
+
+
+Step #2 
+docker image tag the container image 
+
+Do 'docker image ls' to get the Docker container image (including container image tag)
+to tag as pre-step required to push the tagged container image to DockerHub repo.
+
+To do this:
+
+Syntax:
+
+docker tag <container-image-id (see 'IMAGE ID')> <dockerhub-username>/<container-image-name>:<tag>
+
+Actual Use:
+docker tag ############ isgogolgo13/go-gokit-gorilla-restsvc:1.0
+
+
+Step #3 
+docker image push to DockerHub container image repo 
+
+Syntax:
+
+docker push <dockerhub-username/<container-image-tag>
+
+Actual Use:
+
+docker push isgogolgo13/go-gokit-gorilla-restsvc:1.0
+
 ```
