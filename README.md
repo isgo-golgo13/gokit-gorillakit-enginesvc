@@ -92,3 +92,14 @@ docker container exec -it go-gokit-gorilla-restsvc /bin/sh
 ```
 
 The run `ls -al` to see the directory structure of the application as laid out in the container.
+
+
+### To Push Docker Container Image to  DockerHub
+
+```
+1. docker login 
+2. docker image tag the container image 
+3. docker image push to DockerHub container image repo 
+
+Step #2 retrieves the docker image 
+```
