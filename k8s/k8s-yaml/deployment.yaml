@@ -25,8 +25,8 @@ spec:
           # - Init containers always run to completion.
           # - Each init container must complete successfully before the next one starts.
       containers:
-      - name:  MYAPP
-        image:  MYAPP:latest
+      - name:  go-gokit-gorilla-restsvc
+        image:  isgogolgo13/go-gokit-gorilla-restsvc:1.0
         resources:
           requests:
             cpu: 100m
@@ -51,20 +51,20 @@ spec:
         #   successThreshold: 1
         #   failureThreshold: 3
         #   periodSeconds: 10
-        env:
-        - name: ""
-          valueFrom:
-            configMapKeyRef:
-              name: ""
-              key: ""
-        ports:
-        - containerPort:  8080
-          name:  MYAPP
-        volumeMounts:
-        - name: ""
-          mountPath: ""
-      volumes:
-        - name: ""
-          hostPath:
-            path: ""
+      #   env:
+      #   - name: ""
+      #     valueFrom:
+      #       configMapKeyRef:
+      #         name: ""
+      #         key: ""
+      #   ports:
+      #   - containerPort: 8080
+      #     name: ""
+      #   volumeMounts:
+      #   - name: ""
+      #     mountPath: ""
+      # volumes:
+      #   - name: ""
+      #     hostPath:
+      #       path: ""
       restartPolicy: Always
