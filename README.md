@@ -158,12 +158,12 @@ k3d cluster create go-gokit-gorilla-restsvc-cluster \
 
 The following flags and flag arguments are as follows:
 
-| Flag                    |                        | Result                                                            | 
-|:-----------------------:|:----------------------:|:------------------------------------------------------------------| 
-| --api-port              |  127.0.0.1:6443        | k3d cluster will serve at IP: 127.0.0.1 (localhost) on port 6443  | 
-| -p                      | 80:80@loadbalancer     | tie localhost port 80 to port 80 to k3d virtual load balancer     | 
-| -p                      | 443:443@loadbalancer   | tie localhost port 443 to port 443 to k3d virtual load balancer   | 
-| --k3s-server-arg        | "--no-deploy=traefik"  | disable Traefik load balancer/ingress v1 to override with v2      |
+| Flag                    |                        | Result                                                                | 
+|:-----------------------:|:----------------------:|:--------------------------------------------------------------------- | 
+| --api-port              |  127.0.0.1:6443        | k3d cluster will serve at IP: 127.0.0.1 (localhost) on port 6443      | 
+| -p                      | 80:80@loadbalancer     | tie localhost port 80 to port 80 to k3d virtual load balancer         | 
+| -p                      | 443:443@loadbalancer   | tie localhost port 443 to port 443 to k3d virtual load balancer       | 
+| --k3s-server-arg        | "--no-deploy=traefik"  | **disable Traefik load balancer/ingress v1 to override with v2**      |
 
 
 
