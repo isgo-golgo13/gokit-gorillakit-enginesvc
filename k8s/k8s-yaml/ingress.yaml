@@ -1,19 +1,17 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: go-gokit-gorilla-restsvc
   annotations:
+    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls: "false"
 spec:
   rules:
   - http:
       paths:
-      - path: /engines
+      - path: /engines/
+        pathType: Exact
         backend:
-          serviceName: go-gokit-gorilla-restsvc-writer
-          servicePort: 8080
-      - path: /engines
-        backend:
-          serviceName: go-gokit-gorilla-restsvc-reader
-          servicePort: 8080
+          serviceName: go-gokit-gorilla-restsvc
+          servicePort: 80

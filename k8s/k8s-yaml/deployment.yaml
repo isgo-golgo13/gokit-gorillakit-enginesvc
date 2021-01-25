@@ -10,11 +10,11 @@ spec:
     matchLabels:
       app: go-gokit-gorilla-restsvc
   replicas: 1
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+  # strategy:
+  #   rollingUpdate:
+  #     maxSurge: 25%
+  #     maxUnavailable: 25%
+  #   type: RollingUpdate
   template:
     metadata:
       labels:
@@ -57,8 +57,8 @@ spec:
       #       configMapKeyRef:
       #         name: ""
       #         key: ""
-      #   ports:
-      #   - containerPort: 8080
+        ports:
+        - containerPort: 8080
       #     name: ""
       #   volumeMounts:
       #   - name: ""

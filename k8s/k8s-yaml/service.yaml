@@ -7,5 +7,5 @@ spec:
     app: go-gokit-gorilla-restsvc
   type: ClusterIP
   ports:
-  - port: 8080
+  - port: 80
     targetPort: 8080
