@@ -224,14 +224,23 @@ kubectl create -f ingress.yaml
 
 
 
-#### K8s YAML Approach 
+#### K8s Helm Approach (Helm 3)
+
+For K8s Helm deployment issue as follows:
+
+From the `k8s/k8s-helm/gokit-gorilla-restsvc-chart` diretory (at the shell):
+
+`1.` Deploy the Helm Chart
+```
+helm upgrade -i gokit-gorilla-restsvc-chart gokit-gorilla-restsvc-chart
+```
+Helm handles the correct deployment order of the underlying K8s resources (first deployment, second the service, third and final the ingress)
+
+#### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
 
 
 
-### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
-
-
-### Call the K8s Deployed Application 
+#### Execute the K8s Deployed Application 
 
 ### Create/Register an Engine:
 
