@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "helmk8s-gokit-gorilla-restsvc.fullname" . }}
+  name: {{ include "gokit-gorilla-restsvc-chart.fullname" . }}
   labels:
-    {{- include "helmk8s-gokit-gorilla-restsvc.labels" . | nindent 4 }}
+    {{- include "gokit-gorilla-restsvc-chart.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "helmk8s-gokit-gorilla-restsvc.fullname" . }}
+    name: {{ include "gokit-gorilla-restsvc-chart.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
