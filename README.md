@@ -158,3 +158,9 @@ k3d cluster create go-gokit-gorilla-restsvc-cluster \
 
 The following flags and flag arguments are as follows:
 
+| Flag              |                        | Result                                                     | 
+| ----------------- |:-------------          | ----------------------------------------------------------:| 
+| --api-port        |  127.0.0.1:6443        |                                   | 
+| -p                | 80:80@loadbalancer     |                                   | 
+| -p                | 443:443@loadbalancer   |                                   | 
+| --k3s-server-arg  | "--no-deploy=traefik"  |                                   |
