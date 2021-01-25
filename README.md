@@ -236,8 +236,6 @@ helm upgrade -i gokit-gorilla-restsvc-chart gokit-gorilla-restsvc-chart
 ```
 Helm handles the correct deployment order of the underlying K8s resources (first deployment, second the service, third and final the ingress)
 
-### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
-
 
 
 ### Execute the K8s Deployed Application 
@@ -257,3 +255,6 @@ Here the `http://localhost/engines/` does not need to explicitly reference the p
 $ curl localhost/engines/00001
 {"engine":{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}}
 ```
+
+
+### Analysis of the Deployment (From Ingress->Service->Deployment)
