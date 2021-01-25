@@ -221,3 +221,30 @@ kubectl create -f  service.yaml
 ```
 kubectl create -f ingress.yaml
 ```
+
+
+
+#### K8s YAML Approach 
+
+
+
+### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
+
+
+### Call the K8s Deployed Application 
+
+### Create/Register an Engine:
+
+```bash
+$ curl -d '{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}' -H "Content-Type: application/json" -X POST http://localhost/engines/
+{}
+```
+
+Here the `http://localhost/engines/` does not need to explicitly reference the port (port 80 defined in the ingress.yaml) or run `kubectl get ingress` as the `ingress.yaml` as detailed earlier defined the `servicePort` which is port 80 that in-turn is tied to the `service` port of 80 and in turn the service is tied to the `containerPort` defined in the `deployment.yaml` as 8080. **The Go REST app is running on 8080.**
+
+### Retrieve an Engine
+ 
+```bash
+$ curl localhost/engines/00001
+{"engine":{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}}
+```
