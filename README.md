@@ -252,7 +252,7 @@ Here the `http://localhost/engines/` does not need to explicitly reference the p
 #### Retrieve an Engine
  
 ```bash
-$ curl localhost/engines/00001
+$ curl http://localhost/engines/00001
 {"engine":{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}}
 ```
 
