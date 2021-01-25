@@ -159,7 +159,7 @@ k3d cluster create go-gokit-gorilla-restsvc-cluster \
 The following flags and flag arguments are as follows:
 
 | Flag              |                        | Result                                                                      | 
-| ----------------- |:----------------------:|:---------------------------------------------------------------------------:| 
+| ----------------- |:----------------------:|:--------------------------------------------------------------------------- | 
 | --api-port        |  127.0.0.1:6443        | k3d cluster will serve at IP: 127.0.0.1 (localhost) on port 6443            | 
 | -p                | 80:80@loadbalancer     | associate localhost port 80 to port 80 to k3d virtual load balancer         | 
 | -p                | 443:443@loadbalancer   | associate localhost port 443 to port 443 to k3d virtual load balancer       | 
