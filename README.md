@@ -170,8 +170,11 @@ The following flags and flag arguments are as follows:
 **2.** Install Traefik Load Balancer/Ingress Controller v2
 
 ```
-helm repo list  # Check if traefik helm repo is downloaded/cached on the host (if NOT the helm repo add will do it in the next step)
-helm repo add traefik https://containous.github.io/traefik-helm-chart  # Do only if traefik helm  repo not downloaded/cached on the host)
+**# Check if traefik helm repo is downloaded/cached on the host (if NOT the helm repo add will do it in the next step) **
+helm repo list 
+
+# Do only if traefik helm  repo not downloaded/cached on the host)
+helm repo add traefik https://containous.github.io/traefik-helm-chart  
 
 helm install traefik traefik/traefik
 ```
