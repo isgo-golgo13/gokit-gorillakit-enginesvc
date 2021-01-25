@@ -236,13 +236,13 @@ helm upgrade -i gokit-gorilla-restsvc-chart gokit-gorilla-restsvc-chart
 ```
 Helm handles the correct deployment order of the underlying K8s resources (first deployment, second the service, third and final the ingress)
 
-#### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
+### Analysis of Deployed Traefik Ingress-to-Service-to-Deployment
 
 
 
-#### Execute the K8s Deployed Application 
+### Execute the K8s Deployed Application 
 
-### Create/Register an Engine:
+#### Create/Register an Engine:
 
 ```bash
 $ curl -d '{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radial", "engine_capacity": 660.10, "fuel_capacity": 400.00, "fuel_range": 240.60}' -H "Content-Type: application/json" -X POST http://localhost/engines/
@@ -251,7 +251,7 @@ $ curl -d '{"id":"00001","factory_id":"utc_pw_10-0001", "engine_config" : "Radia
 
 Here the `http://localhost/engines/` does not need to explicitly reference the port (port 80 defined in the ingress.yaml) or run `kubectl get ingress` as the `ingress.yaml` as detailed earlier defined the `servicePort` which is port 80 that in-turn is tied to the `service` port of 80 and in turn the service is tied to the `containerPort` defined in the `deployment.yaml` as 8080. **The Go REST app is running on 8080.**
 
-### Retrieve an Engine
+#### Retrieve an Engine
  
 ```bash
 $ curl localhost/engines/00001
