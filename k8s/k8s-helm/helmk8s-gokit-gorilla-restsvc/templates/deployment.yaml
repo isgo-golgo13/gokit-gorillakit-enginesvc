@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "helmk8s-gokit-gorilla-restsvc.fullname" . }}
+  name: {{ include "gokit-gorilla-restsvc-chart.fullname" . }}
   labels:
-    {{- include "helmk8s-gokit-gorilla-restsvc.labels" . | nindent 4 }}
+    {{- include "gokit-gorilla-restsvc-chart.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "helmk8s-gokit-gorilla-restsvc.selectorLabels" . | nindent 6 }}
+      {{- include "gokit-gorilla-restsvc-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "helmk8s-gokit-gorilla-restsvc.selectorLabels" . | nindent 8 }}
+        {{- include "gokit-gorilla-restsvc-chart.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "helmk8s-gokit-gorilla-restsvc.serviceAccountName" . }}
+      serviceAccountName: {{ include "gokit-gorilla-restsvc-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
