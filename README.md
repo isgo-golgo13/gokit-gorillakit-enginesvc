@@ -144,7 +144,7 @@ docker push isgogolgo13/go-gokit-gorilla-restsvc:1.0
 
 ### Running the K8s (K8s YAML Approach, K8s Helm Approach)
 
-To run the `sgogolgo13/go-gokit-gorilla-restsvc` on K8s cluster we will use Rancher `k3d` using Traefik 2.2 LoadBalancer/Ingress as of 1-25-2020
+To run the `sgogolgo13/go-gokit-gorilla-restsvc` on K8s cluster we will use Rancher `k3d` using Traefik 2.2 LoadBalancer/Ingress Controller as of 1-25-2020
 k3d included Traefik uses v1 and to use v2 the step to include v2 is to provide arguments to the `k3d cluster create` command.
 
 **1.** Create the K3D cluster (default 1 server node, 1 agent node) - Disable default Traefik v1 Load Balancer/Ingress
@@ -164,3 +164,14 @@ The following flags and flag arguments are as follows:
 | -p                      | 80:80@loadbalancer     | associate localhost port 80 to port 80 to k3d virtual load balancer         | 
 | -p                      | 443:443@loadbalancer   | associate localhost port 443 to port 443 to k3d virtual load balancer       | 
 | --k3s-server-arg        | "--no-deploy=traefik"  | disable Traefik load balancer/ingress v1 to override with v2 (using Helm) * |
+
+
+
+**2.** Install Traefik Load Balancer/Ingress Controller v2
+
+```
+helm repo list  # Check if traefik helm repo is downloaded/cached on the host (if NOT the helm repo add will do it in the next step)
+helm repo add traefik https://containous.github.io/traefik-helm-chart  # Do only if traefik helm  repo not downloaded/cached on the host)
+
+helm install traefik traefik/traefik
+```
