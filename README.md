@@ -144,7 +144,7 @@ docker push isgogolgo13/go-gokit-gorilla-restsvc:1.0
 
 ### Running the K8s (K8s YAML Approach, K8s Helm Approach)
 
-To run the `sgogolgo13/go-gokit-gorilla-restsvc` on K8s cluster we will use Rancher `k3d' using Traefik 2.2 LoadBalancer/Ingress as of 1-25-2020
+To run the `sgogolgo13/go-gokit-gorilla-restsvc` on K8s cluster we will use Rancher `k3d` using Traefik 2.2 LoadBalancer/Ingress as of 1-25-2020
 k3d included Traefik uses v1 and to use v2 the step to include v2 is to provide arguments to the `k3d cluster create` command.
 
 **1.** Create the K3D cluster (default 1 server node, 1 agent node) - Disable default Traefik v1 Load Balancer/Ingress
