@@ -172,7 +172,6 @@ The following flags and flag arguments are as follows:
 ```
 helm repo list 
 
-# Do only if traefik helm repo not downloaded/cached on the host)
 helm repo add traefik https://containous.github.io/traefik-helm-chart  
 
 helm install traefik traefik/traefik
