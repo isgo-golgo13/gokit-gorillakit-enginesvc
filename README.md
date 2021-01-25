@@ -188,3 +188,37 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 ```
+
+**3.** Check Traefik Dashboard 
+
+```
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+```
+
+Now go to `http://localhost:9000/dashboard` to check if Traefik Dashboard is up.
+
+
+**4.** Deploy K8s Resources to k3d Cluster
+
+The following will show how to deploy the K8s Resources **(first using K8s YAML, second K8s Helm Chart)**
+
+#### K8s YAML Approach 
+
+For K8s YAML deployment issue in the exact order as follows:
+
+From the `k8s/k8s-yaml` diretory (at the shell):
+
+`1.` Deploy the `deployment.yaml` file
+```
+kubectl create -f deployment.yaml
+```
+
+`2.` Deploy the `service.yaml` file
+```
+kubectl create -f  service.yaml
+```
+
+`3.` Deploy the `ingress.yaml` file (annotated ingress using Traefik)
+```
+kubectl create -f ingress.yaml
+```
