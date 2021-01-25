@@ -181,7 +181,6 @@ helm install traefik traefik/traefik
 The result of Step #2 should see :
 
 ```
-helm install traefik traefik/traefik
 NAME: traefik
 LAST DEPLOYED: Mon Jan 25 14:52:09 2021
 NAMESPACE: default
