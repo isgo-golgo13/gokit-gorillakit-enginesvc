@@ -17,13 +17,13 @@ metadata:
   {{- end }}
 spec:
   rules:
-  - http:
-      paths:
-      {{- range .paths }}
-      - path: {{ .Values.ingress.paths.path}}
-        pathType: {{ .Values.ingress.paths.pathType}}
-        backend:
-          serviceName: {{ .Values.ingress.paths.backend.serviceName }}
-          servicePort: {{ .Values.ingress.paths.backend.servicePort }}
-      {{- end }}
-  {{- end }}
+    - http:
+        paths:
+        - path: /engines/
+          pathType: Exact
+          backend:
+            serviceName: {{ $fullName }}
+            servicePort: {{ $svcPort }}
+{{- end }}
+
+

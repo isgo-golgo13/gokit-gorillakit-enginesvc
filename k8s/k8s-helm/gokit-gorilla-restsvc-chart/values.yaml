@@ -47,27 +47,18 @@ ingress:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.tls: "false"
+  # tls: []
+  spec:
+    rules:
+     - http:
+         paths:
+         - path: "/engines/"
+           pathType: Exact
+           backend:
+             serviceName: go-gokit-gorilla-restsvc
+             servicePort: 80
 
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-  # hosts:
-  #   - host: ""
-  #     paths: []
 
-  # rules:
-  # - http:
-  paths:
-    path: /engines/
-    pathType: Exact
-    backend:
-      serviceName: go-gokit-gorilla-restsvc
-      servicePort: 80
-
-  
 
 
 resources:
