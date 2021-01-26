@@ -232,12 +232,16 @@ From the `k8s/k8s-helm/gokit-gorilla-restsvc-chart` diretory (at the shell):
 
 `1.` Render the Helm Chart (Local Render)
 ```
-helm template gokit--gorilla-restsvc-chart .
+helm template gokit-gorilla-restsvc-chart .
 ```
 
 `2.` Deploy the Helm Chart
 ```
-helm upgrade -i gokit-gorilla-restsvc-chart gokit-gorilla-restsvc-chart
+Syntax:
+helm upgrade -i <release-name> <chart-dir>
+
+Actual Use:
+helm upgrade -i gokit-gorilla-restsvc-chart .
 ```
 Helm handles the correct deployment order of the underlying K8s resources (first deployment, second the service, third and final the ingress)
 
