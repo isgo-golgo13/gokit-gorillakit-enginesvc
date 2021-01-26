@@ -230,7 +230,12 @@ For K8s Helm deployment issue as follows:
 
 From the `k8s/k8s-helm/gokit-gorilla-restsvc-chart` diretory (at the shell):
 
-`1.` Deploy the Helm Chart
+`1.` Render the Helm Chart (Local Render)
+```
+helm template gokit--gorilla-restsvc-chart .
+```
+
+`2.` Deploy the Helm Chart
 ```
 helm upgrade -i gokit-gorilla-restsvc-chart gokit-gorilla-restsvc-chart
 ```

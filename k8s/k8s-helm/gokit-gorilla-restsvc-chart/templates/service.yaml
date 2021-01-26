@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "gokit-gorilla-restsvc-chart.fullname" . }}
+  name: {{ include "gokit-gorilla-restsvc-chart.name" . }}
   labels:
     {{- include "gokit-gorilla-restsvc-chart.labels" . | nindent 4 }}
 spec:

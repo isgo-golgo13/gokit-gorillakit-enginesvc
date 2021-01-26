@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "gokit-gorilla-restsvc-chart.fullname" . }}
+  name: {{ include "gokit-gorilla-restsvc-chart.name" . }}
   labels:
     {{- include "gokit-gorilla-restsvc-chart.labels" . | nindent 4 }}
 spec:
