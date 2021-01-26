@@ -245,6 +245,15 @@ helm upgrade -i gokit-gorilla-restsvc-chart .
 ```
 Helm handles the correct deployment order of the underlying K8s resources (first deployment, second the service, third and final the ingress)
 
+`3.` Uninstall the Chart
+```
+Syntax:
+helm uninstall <release-name>
+
+Actual Use:
+helm uninstall gokit-gorilla-restsvc-chart
+```
+
 
 
 ### Execute the K8s Deployed Application 
