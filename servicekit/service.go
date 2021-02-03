@@ -20,6 +20,8 @@ type Engine struct {
 	EngineCapacity float32 `json:"engine_capacity"`
 	FuelCapacity   float32 `json:"fuel_capacity"`
 	FuelRange      float32 `json:"fuel_range"`
+	EngineHP       float32 `json:"engine_hp"`
+	EngineTorque   float32 `json:"engine_torque"`
 }
 
 type RegistrationService struct {
