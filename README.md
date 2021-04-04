@@ -276,3 +276,7 @@ $ curl http://localhost/engines/00001
 
 
 ### Analysis of the Deployment (From Ingress->Service->Deployment)
+
+
+
+### GitOps Pipeline (Pipeline-as-Code) Workflow to ArgoCD using GitLab CI (Detailed)
