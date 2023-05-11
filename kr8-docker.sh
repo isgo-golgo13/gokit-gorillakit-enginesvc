@@ -2,4 +2,4 @@
 
 set -ex
 
-docker image build -t go-gokit-gorilla-restsvc:1.0 .
+docker image build -t gokit-gorillakit-enginesvc:1.0 .

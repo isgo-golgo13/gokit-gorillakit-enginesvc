@@ -1,5 +1,5 @@
 # stage 1
-FROM golang:1.18-alpine as stage
+FROM golang:1.20-alpine as stage
 
 WORKDIR /gokit-enginesvc
 COPY go.mod go.sum ./
@@ -11,6 +11,7 @@ RUN go mod verify
 COPY client/ client/
 COPY servicekit/ servicekit/
 COPY cmd/service cmd/service/
+COPY storagekit/ storagekit/
 
 ENV GO111MODULE=on
 ENV CGO_ENABLED=0

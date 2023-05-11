@@ -9,7 +9,7 @@ import (
 
 	consulapi "github.com/hashicorp/consul/api"
 
-	"github-actions-ci-pipeline/servicekit"
+	"gokit-gorillakit-enginesvc/servicekit"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"

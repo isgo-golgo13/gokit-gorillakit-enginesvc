@@ -4,4 +4,4 @@ set -ex
 
 # The following docker container sub-command ONLY works if container is running
 
-docker container exec -it go-gokit-gorilla-restsvc /bin/sh  
+docker container exec -it gokit-gorillakit-enginesvc /bin/sh  

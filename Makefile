@@ -6,7 +6,7 @@ SERVICE_NAME=service
 all:
 	
 compile: 
-	go build github-actions-ci-pipeline/cmd/service
+	go build gokit-gorillakit-enginesvc/cmd/service
 
 run:
 	./service
