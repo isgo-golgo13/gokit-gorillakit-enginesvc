@@ -17,6 +17,7 @@ The Go microservice uses the Go-kit Go Hexagonal Architecture API Toolkit to han
 ![API Hexagonal Architecture for Microservice Auth-Service App](docs/enginesvc-hexagon-api-architecture.png)
 
 
+
 ### Service
 ![Service Architecture](docs/chassis-dp-service-layer.png)
 
