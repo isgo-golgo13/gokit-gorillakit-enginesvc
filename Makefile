@@ -5,24 +5,14 @@ SERVICE_NAME=service
 
 all:
 	
-build: 
-	go build github.com/isgo-golgo13/go-gokit-gorilla-restsvc/cmd/service
+compile: 
+	go build github-actions-ci-pipeline/cmd/service
 
 run:
 	./service
 
 clean: 
 	rm -f ${SERVICE_NAME}
-
-docker-build:
-	sh kill-docker.sh
-	sh kr8-docker.sh 
-
-docker-run:
-	sh kr8-docker-run.sh
-
-docker-clean:
-	sh kill-docker.sh
 
 test:
 	go test -v

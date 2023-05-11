@@ -9,12 +9,13 @@ import (
 
 	consulapi "github.com/hashicorp/consul/api"
 
+	"github-actions-ci-pipeline/servicekit"
+
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/sd"
 	"github.com/go-kit/kit/sd/consul"
 	"github.com/go-kit/kit/sd/lb"
-	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/servicekit"
 )
 
 // New returns a service that's load-balanced over instances of enginesvc found
@@ -28,10 +29,10 @@ func New(consulAddr string, logger log.Logger) (servicekit.Service, error) {
 		return nil, err
 	}
 
-	// As the implementer of 'engine-service', we declare and enforce these
+	// As the implementer of 'gokit-enginesvc', we declare and enforce these
 	// parameters for all of the 'service' consumers.
 	var (
-		consulService = "engine-service"
+		consulService = "gokit-enginesvc"
 		consulTags    = []string{"prod"}
 		passingOnly   = true
 		retryMax      = 3

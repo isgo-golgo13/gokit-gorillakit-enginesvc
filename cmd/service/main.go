@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/isgo-golgo13/go-gokit-gorilla-restsvc/servicekit"
+	"github-actions-ci-pipeline/servicekit"
 
 	"github.com/go-kit/kit/log"
 )

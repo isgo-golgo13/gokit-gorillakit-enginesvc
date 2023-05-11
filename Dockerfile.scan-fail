@@ -1,5 +1,5 @@
 # stage 1
-FROM golang:1.18-alpine as stage
+FROM golang:1.14.6-alpine as stage
 
 WORKDIR /gokit-enginesvc
 COPY go.mod go.sum ./
@@ -22,7 +22,7 @@ RUN go build -o service cmd/service/main.go
 
 
 # stage 2
-FROM alpine:latest
+FROM golang:1.14.6-alpine
 RUN apk add --no-cache git tzdata curl 
 COPY --from=stage /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 WORKDIR /root/
