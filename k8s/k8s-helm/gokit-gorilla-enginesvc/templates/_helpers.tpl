@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "gokit-gorilla-restsvc-chart.name" -}}
+{{- define "gokit-gorilla-enginesvc.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "gokit-gorilla-restsvc-chart.fullname" -}}
+{{- define "gokit-gorilla-enginesvc.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,7 +26,7 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "gokit-gorilla-restsvc-chart.chart" -}}
+{{- define "gokit-gorilla-enginesvc.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -34,8 +34,8 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "gokit-gorilla-restsvc-chart.labels" -}}
-helm.sh/chart: {{ include "gokit-gorilla-restsvc-chart.chart" . }}
-{{ include "gokit-gorilla-restsvc-chart.selectorLabels" . }}
+helm.sh/chart: {{ include "gokit-gorilla-enginesvc.chart" . }}
+{{ include "gokit-gorilla-enginesvc.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "gokit-gorilla-restsvc-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "gokit-gorilla-restsvc-chart.name" . }}
+{{- define "gokit-gorilla-enginesvc.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "gokit-gorilla-enginesvc.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "gokit-gorilla-restsvc-chart.serviceAccountName" -}}
+{{- define "gokit-gorilla-enginesvc.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "gokit-gorilla-restsvc-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "gokit-gorilla-enginesvc.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

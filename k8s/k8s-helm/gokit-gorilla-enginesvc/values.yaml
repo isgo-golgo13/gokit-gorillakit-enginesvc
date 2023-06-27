@@ -6,7 +6,7 @@
 replicaCount: 1
 
 image:
-  repository: isgogolgo13/go-gokit-gorilla-restsvc
+  repository: isgogolgo13/gokit-gorilla-enginesvc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0"
@@ -55,7 +55,7 @@ ingress:
     - path: "/engines/"
       pathType: Exact
       backend:
-        serviceName: go-gokit-gorilla-restsvc
+        serviceName: gokit-gorilla-enginesvc
         servicePort: 80
 
 
