@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: gokit-gorillakit-enginesvc
+  name: gokit-gorillakit-enginesvc-hpa
   namespace: enginesvc
 spec:
   maxReplicas: 5
@@ -16,3 +16,24 @@ spec:
 
 --- 
 # VPA
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: gokit-gorillakit-enginesvc-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: gokit-gorillakit-enginesvc-vpa
+  updatePolicy:
+    updateMode: "Off"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: '*'
+      minAllowed:
+        cpu: 250m
+        memory: 250Mi
+      maxAllowed:
+        cpu: 1
+        memory: 500Mi
+      controlledResources: ["cpu", "memory"]
