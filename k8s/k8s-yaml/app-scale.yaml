@@ -3,6 +3,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: gokit-gorillakit-enginesvc
+  namespace: enginesvc
 spec:
   maxReplicas: 5
   minReplicas: 1
