@@ -106,14 +106,20 @@ func decodeGetRegisteredEngineResponse(_ context.Context, resp *http.Response) (
 }
 
 // Health
-type healthRequest struct {}
+
+func encodeHealthRequest(ctx context.Context, req *http.Request, request interface{}) error {
+	// r.Methods("GET").Path("/engines/{id}")
+	req.URL.Path = "/health/"
+	return encodeRequest(ctx, req, request)
+}
+
 // decode health check
 func decodeHealthRequest(_ context.Context, _ *http.Request) (interface{}, error) {
-	return healthRequest{}, nil
+	return getHealthRequest{}, nil
 }
 
 func decodeHealthResponse(_ context.Context, _ *http.Response) (interface{}, error) {
-	return healthRequest{}, nil
+	return getHealthRequest{}, nil
 }
 
 

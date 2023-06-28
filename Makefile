@@ -4,9 +4,12 @@ SERVICE_NAME=service
 .DEFAULT_GOAL : all
 
 all:
+
+env: 
+	export GO111MODULE=on 
 	
-compile: 
-	GO111MODULE=on go build gokit-gorillakit-enginesvc/cmd/service
+compile:   
+	go build gokit-gorillakit-enginesvc/cmd/service
 
 run:
 	./service

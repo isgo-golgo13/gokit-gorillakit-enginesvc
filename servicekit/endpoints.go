@@ -36,7 +36,7 @@ func MakeServerEndpoints(s Service) Endpoints {
 	return Endpoints{
 		RegisterEngineEndpoint:      MakeRegisterEngineEndpoint(s),
 		GetRegisteredEngineEndpoint: MakeGetRegisteredEngineEndpoint(s),
-		HealthCheckEndpoint: MakeHealthEndpoint(s),
+		HealthCheckEndpoint: 		 MakeHealthEndpoint(s),
 	}
 }
 
@@ -62,7 +62,7 @@ func MakeClientEndpoints(instance string) (Endpoints, error) {
 	return Endpoints{
 		RegisterEngineEndpoint:      httptransport.NewClient("POST", tgt, encodeRegisterEngineRequest, decodeRegisterEngineResponse, options...).Endpoint(),
 		GetRegisteredEngineEndpoint: httptransport.NewClient("GET", tgt, encodeGetRegisteredEngineRequest, decodeGetRegisteredEngineResponse, options...).Endpoint(),
-		HealthCheckEndpoint:         httptransport.NewClient("GET", tgt, nil, decodeHealthResponse, options...).Endpoint(),
+		HealthCheckEndpoint:         httptransport.NewClient("GET", tgt, encodeHealthRequest, decodeHealthResponse, options...).Endpoint(),
 	}, nil
 }
 
@@ -109,17 +109,11 @@ func MakeGetRegisteredEngineEndpoint(s Service) endpoint.Endpoint {
 }
 
 // Health
-//type healthRequest struct {}
-
-type healthResponse struct {
-	Status bool `json:status`
-}
-
 // creating health endpoint
 func MakeHealthEndpoint(svc Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		status := svc.HealthCheck()
-		return healthResponse{Status: status}, nil
+		return getHealthResponse{Status: status}, nil
 	}
 }
 
@@ -146,7 +140,9 @@ type registerEngineResponse struct {
 	Err error `json:"err,omitempty"`
 }
 
-func (r registerEngineResponse) error() error { return r.Err }
+func (r registerEngineResponse) error() error { 
+	return r.Err 
+}
 
 type getRegisteredEngineRequest struct {
 	ID string
@@ -157,6 +153,13 @@ type getRegisteredEngineResponse struct {
 	Err    error  `json:"err,omitempty"`
 }
 
-func (r getRegisteredEngineResponse) error() error { return r.Err }
+func (r getRegisteredEngineResponse) error() error { 
+	return r.Err 
+}
+
+type getHealthRequest struct {}
+type getHealthResponse struct {
+	Status bool `json:status`
+}
 
 
