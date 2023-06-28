@@ -6,7 +6,7 @@ metadata:
   name: "{{ include "gokit-gorillakit-enginesvc.name" . }}-vpa"
   namespace: {{ .Values.namespace.name }}
   labels:
-    {{- include "app-tenant.labels" . | nindent 4 }}
+    {{- include "gokit-gorillakit-enginesvc.labels" . | nindent 4 }}
 spec:
   targetRef: 
     apiVersion: "apps/v1"
