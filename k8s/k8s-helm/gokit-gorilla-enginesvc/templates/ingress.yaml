@@ -22,10 +22,12 @@ spec:
       http:
         paths:
   {{- range $p := $paths }}
-          - path: {{ $p }}
+          - path: {{ $p.path }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $servicePort }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $servicePort }} 
   {{- end -}}
   {{- end -}}
   {{- else }}
@@ -35,8 +37,10 @@ spec:
           - path: {{ $p.path }}
             pathType: {{ $p.pathType }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $servicePort }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $servicePort }}
   {{- end -}}
   {{- end -}}
   {{- if .Values.ingress.tls }}

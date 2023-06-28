@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "gokit-gorilla-restsvc-chart.name" . }}-test-connection"
+  name: "{{ include "gokit-gorilla-enginesvc.name" . }}-test-connection"
   labels:
-    {{- include "gokit-gorilla-restsvc-chart.labels" . | nindent 4 }}
+    {{- include "gokit-gorilla-enginesvc.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "gokit-gorilla-restsvc-chart.name" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "gokit-gorilla-enginesvc.name" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
