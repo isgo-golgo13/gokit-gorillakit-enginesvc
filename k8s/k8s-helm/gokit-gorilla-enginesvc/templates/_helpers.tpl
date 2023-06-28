@@ -33,7 +33,7 @@ Create chart name and version as used by the chart label.
 {{/*
 Common labels
 */}}
-{{- define "gokit-gorilla-restsvc-chart.labels" -}}
+{{- define "gokit-gorilla-enginesvc.labels" -}}
 helm.sh/chart: {{ include "gokit-gorilla-enginesvc.chart" . }}
 {{ include "gokit-gorilla-enginesvc.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
