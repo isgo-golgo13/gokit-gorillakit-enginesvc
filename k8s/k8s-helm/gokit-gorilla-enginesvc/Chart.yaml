@@ -1,5 +1,5 @@
 apiVersion: v2
-name: gokit-gorilla-enginesvc
+name: gokit-gorillakit-enginesvc
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.

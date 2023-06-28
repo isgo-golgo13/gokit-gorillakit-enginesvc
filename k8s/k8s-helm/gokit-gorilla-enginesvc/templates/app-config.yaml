@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: gokit-gorillakit-enginesvc-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  key: default

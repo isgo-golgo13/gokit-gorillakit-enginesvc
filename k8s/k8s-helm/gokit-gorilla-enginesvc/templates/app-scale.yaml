@@ -1,0 +1,22 @@
+# VPA
+{{- if .Values.vpaAutoscaling.enabled }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: "{{ include "gokit-gorillakit-enginesvc.name" . }}-vpa"
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- include "app-tenant.labels" . | nindent 4 }}
+spec:
+  targetRef: 
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: {{ include "gokit-gorillakit-enginesvc.name" . }}
+  updatePolicy:
+    updateMode: {{ .Values.vpaAutoscaling.updatePolicy.updateMode | squote }}
+  resourcePolicy:
+    {{- with .Values.vpaAutoscaling.resourcePolicy -}}
+        {{- toYaml . | nindent 4 }}
+    {{- end }}
+      controlledResources: ["cpu", "memory"]
+ {{- end }}
