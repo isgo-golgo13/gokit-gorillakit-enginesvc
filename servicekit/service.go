@@ -9,6 +9,9 @@ import (
 type Service interface {
 	RegisterEngine(ctx context.Context, e Engine) error
 	GetRegisteredEngine(ctx context.Context, id string) (Engine, error)
+
+	// health check
+	HealthCheck() bool 
 }
 
 // Engine CRUD data.
@@ -53,4 +56,8 @@ func (s *RegistrationService) GetRegisteredEngine(ctx context.Context, id string
 		return Engine{}, ErrEngineNotExistInRegistry
 	}
 	return e, nil
+}
+
+func (s *RegistrationService) HealthCheck() bool {
+	return true 
 }

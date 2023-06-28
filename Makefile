@@ -6,7 +6,7 @@ SERVICE_NAME=service
 all:
 	
 compile: 
-	go build gokit-gorillakit-enginesvc/cmd/service
+	GO111MODULE=on go build gokit-gorillakit-enginesvc/cmd/service
 
 run:
 	./service

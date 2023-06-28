@@ -26,6 +26,7 @@ import (
 type Endpoints struct {
 	RegisterEngineEndpoint      endpoint.Endpoint
 	GetRegisteredEngineEndpoint endpoint.Endpoint
+	HealthCheckEndpoint         endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct where each endpoint invokes
@@ -35,6 +36,7 @@ func MakeServerEndpoints(s Service) Endpoints {
 	return Endpoints{
 		RegisterEngineEndpoint:      MakeRegisterEngineEndpoint(s),
 		GetRegisteredEngineEndpoint: MakeGetRegisteredEngineEndpoint(s),
+		HealthCheckEndpoint: MakeHealthEndpoint(s),
 	}
 }
 
@@ -60,6 +62,7 @@ func MakeClientEndpoints(instance string) (Endpoints, error) {
 	return Endpoints{
 		RegisterEngineEndpoint:      httptransport.NewClient("POST", tgt, encodeRegisterEngineRequest, decodeRegisterEngineResponse, options...).Endpoint(),
 		GetRegisteredEngineEndpoint: httptransport.NewClient("GET", tgt, encodeGetRegisteredEngineRequest, decodeGetRegisteredEngineResponse, options...).Endpoint(),
+		HealthCheckEndpoint:         httptransport.NewClient("GET", tgt, nil, decodeHealthResponse, options...).Endpoint(),
 	}, nil
 }
 
@@ -105,6 +108,21 @@ func MakeGetRegisteredEngineEndpoint(s Service) endpoint.Endpoint {
 	}
 }
 
+// Health
+//type healthRequest struct {}
+
+type healthResponse struct {
+	Status bool `json:status`
+}
+
+// creating health endpoint
+func MakeHealthEndpoint(svc Service) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		status := svc.HealthCheck()
+		return healthResponse{Status: status}, nil
+	}
+}
+
 // We have two options to return errors from the business logic.
 //
 // We could return the error via the endpoint itself. That makes certain things
@@ -140,3 +158,5 @@ type getRegisteredEngineResponse struct {
 }
 
 func (r getRegisteredEngineResponse) error() error { return r.Err }
+
+

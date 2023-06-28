@@ -37,3 +37,15 @@ func (mw loggingMiddleware) GetRegisteredEngine(ctx context.Context, id string) 
 	}(time.Now())
 	return mw.next.GetRegisteredEngine(ctx, id)
 }
+
+func (mw loggingMiddleware) HealthCheck() (output bool) {
+	defer func(begin time.Time){
+		mw.logger.Log(
+			"function","HealthCheck",
+			"result", output,
+			"took", time.Since(begin),
+		)
+	}(time.Now())
+	output = mw.next.HealthCheck()
+	return
+}

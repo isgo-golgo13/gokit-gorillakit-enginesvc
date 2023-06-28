@@ -36,6 +36,7 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 
 	// POST    /engines/                          registers another engine
 	// GET     /engines/:id                       retrieves the given engine by id
+	// GET     /health 
 
 	r.Methods("POST").Path("/engines/").Handler(httptransport.NewServer(
 		e.RegisterEngineEndpoint,
@@ -46,6 +47,14 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 	r.Methods("GET").Path("/engines/{id}").Handler(httptransport.NewServer(
 		e.GetRegisteredEngineEndpoint,
 		decodeGetRegisteredEngineRequest,
+		encodeResponse,
+		options...,
+	))
+
+	//GET /health
+	r.Methods("GET").Path("/health").Handler(httptransport.NewServer(
+		e.HealthCheckEndpoint,
+		decodeHealthRequest,
 		encodeResponse,
 		options...,
 	))
@@ -95,6 +104,23 @@ func decodeGetRegisteredEngineResponse(_ context.Context, resp *http.Response) (
 	err := json.NewDecoder(resp.Body).Decode(&response)
 	return response, err
 }
+
+// Health
+type healthRequest struct {}
+// decode health check
+func decodeHealthRequest(_ context.Context, _ *http.Request) (interface{}, error) {
+	return healthRequest{}, nil
+}
+
+func decodeHealthResponse(_ context.Context, _ *http.Response) (interface{}, error) {
+	return healthRequest{}, nil
+}
+
+
+
+
+
+
 
 // errorer is implemented by all concrete response types that may contain
 // errors. It allows us to change the HTTP response code without needing to
