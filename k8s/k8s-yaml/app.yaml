@@ -1,14 +1,15 @@
+# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  go-gokit-gorilla-restsvc
+  name: gokit-gorillakit-enginesvc
   namespace: default
   labels:
-    app:  go-gokit-gorilla-restsvc
+    app: gokit-gorillakit-enginesvc
 spec:
   selector:
     matchLabels:
-      app: go-gokit-gorilla-restsvc
+      app: gokit-gorillakit-enginesvc
   replicas: 1
   # strategy:
   #   rollingUpdate:
@@ -18,15 +19,15 @@ spec:
   template:
     metadata:
       labels:
-        app:  go-gokit-gorilla-restsvc
+        app:  gokit-gorillakit-enginesvc
     spec:
       # initContainers:
         # Init containers are exactly like regular containers, except:
           # - Init containers always run to completion.
           # - Each init container must complete successfully before the next one starts.
       containers:
-      - name:  go-gokit-gorilla-restsvc
-        image:  isgogolgo13/go-gokit-gorilla-restsvc:1.0
+      - name:  gokit-gorillakit-enginesvc
+        image:  isgogolgo13/gokit-gorillakit-enginesvc:1.0
         resources:
           requests:
             cpu: 100m
@@ -44,7 +45,7 @@ spec:
         #   periodSeconds: 10
         # readinessProbe:
         #   httpGet:
-        #     path: /_status/healthz
+        #     path: /health
         #     port: 80
         #   initialDelaySeconds: 5
         #   timeoutSeconds: 2
@@ -68,3 +69,47 @@ spec:
       #     hostPath:
       #       path: ""
       restartPolicy: Always
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: gokit-gorillakit-enginesvc
+spec:
+  selector:
+    app: gokit-gorillakit-enginesvc 
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+
+--- 
+# Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gokit-gorillakit-enginesvc 
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "false"
+ingressClass: traefik 
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /engines/
+        pathType: Exact
+        backend:
+          service:
+            name: gokit-gorillakit-enginesvc
+            port:
+              number: 80
+      - path: /health
+        pathType: Exact 
+        backend:
+          service:
+            name: gokit-gorillakit-enginesvc
+            port:
+              number: 80
+

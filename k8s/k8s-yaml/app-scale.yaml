@@ -1,13 +1,17 @@
+# HPA
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: go-gokit-gorilla-restsvc
+  name: gokit-gorillakit-enginesvc
 spec:
   maxReplicas: 5
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: go-gokit-gorilla-restsvc
+    name: gokit-gorillakit-enginesvc
   targetCPUUtilizationPercentage: 50
   # targetMemoryUtilizationPercentage: 80
+
+--- 
+# VPA
